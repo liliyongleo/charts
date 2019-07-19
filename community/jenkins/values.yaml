@@ -11,8 +11,8 @@
 master:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-master"
-  image: "jenkins/jenkins"
-  imageTag: "lts"
+  image: "mycluster.icp:8500/default/jenkins"
+  imageTag: "2.185"
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for master-container
@@ -66,7 +66,7 @@ master:
           - key: beta.kubernetes.io/arch
             operator: In
             values:
-            - "amd64"
+            - "ppc64le"
   # Environment variables that get added to the init container (useful for e.g. http_proxy)
   initContainerEnv:
   #   - name: http_proxy
@@ -160,11 +160,80 @@ master:
 
   # List of plugins to be install during Jenkins master start
   installPlugins:
-    - kubernetes:1.14.0
-    - workflow-job:2.31
-    - workflow-aggregator:2.6
-    - credentials-binding:1.17
-    - git:3.9.1
+    - trilead-api:1.0.4                                       
+    - cloudbees-folder:6.9                                    
+    - jdk-tool:1.2                                            
+    - script-security:1.61                                    
+    - command-launcher:1.3                                    
+    - structs:1.19                                            
+    - workflow-step-api:2.20                                  
+    - scm-api:2.6.3                                           
+    - workflow-api:2.35                                       
+    - junit:1.28                                              
+    - bouncycastle-api:2.17                                   
+    - antisamy-markup-formatter:1.5                           
+    - token-macro:2.8                                         
+    - build-timeout:1.19                                      
+    - credentials:2.2.0                                       
+    - plain-credentials:1.5                                   
+    - ssh-credentials:1.17.1                                  
+    - credentials-binding:1.19                                
+    - timestamper:1.10                                        
+    - workflow-support:3.3                                    
+    - durable-task:1.30                                       
+    - workflow-durable-task-step:2.32                         
+    - matrix-project:1.14                                     
+    - resource-disposer:0.13                                  
+    - ws-cleanup:0.37                                         
+    - ant:1.9                                                 
+    - ace-editor:1.1                                          
+    - jquery-detached:1.2.1                                   
+    - workflow-scm-step:2.9                                   
+    - workflow-cps:2.72                                       
+    - workflow-job:2.33                                       
+    - apache-httpcomponents-client-4-api:4.5.5-3.0            
+    - display-url-api:2.3.1                                   
+    - mailer:1.23                                             
+    - workflow-basic-steps:2.18                               
+    - gradle:1.33                                             
+    - pipeline-milestone-step:1.3.1                           
+    - jackson2-api:2.9.9.1                                    
+    - pipeline-input-step:2.10                                
+    - pipeline-stage-step:2.3                                 
+    - pipeline-graph-analysis:1.10                            
+    - pipeline-rest-api:2.11                                  
+    - handlebars:1.1.1                                        
+    - momentjs:1.1.1                                          
+    - pipeline-stage-view:2.11                                
+    - pipeline-build-step:2.9                                 
+    - pipeline-model-api:1.3.9                                
+    - pipeline-model-extensions:1.3.9                         
+    - jsch:0.1.55                                             
+    - git-client:2.8.0                                        
+    - git-server:1.7                                          
+    - workflow-cps-global-lib:2.14                            
+    - branch-api:2.5.3                                        
+    - workflow-multibranch:2.21                               
+    - authentication-tokens:1.3                               
+    - docker-commons:1.15                                     
+    - docker-workflow:1.18                                    
+    - pipeline-stage-tags-metadata:1.3.9                      
+    - pipeline-model-declarative-agent:1.1.1                  
+    - pipeline-model-definition:1.3.9                         
+    - lockable-resources:2.5                                  
+    - workflow-aggregator:2.6                                 
+    - github-api:1.95                                         
+    - git:3.10.1                                              
+    - github:1.29.4                                           
+    - github-branch-source:2.5.4                              
+    - pipeline-github-lib:1.0                                 
+    - mapdb-api:1.0.9.0                                       
+    - subversion:2.12.2                                       
+    - ssh-slaves:1.30.0                                       
+    - matrix-auth:2.4.2                                       
+    - pam-auth:1.5.1                                          
+    - ldap:1.20                                               
+    - email-ext:2.66             
 
   # Enable to always override the installed plugins with the values of 'master.installPlugins' on upgrade or redeployment.
   overwritePlugins:
@@ -372,7 +441,7 @@ agent:
   co:
 
 persistence:
-  enabled: true
+  enabled: false
   useDynamicProvisioning: false
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
